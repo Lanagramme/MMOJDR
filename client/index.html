@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="ctx" width="500" height="500" style="border: 1px solid black;"></canvas>
+  
+  <script src="./client/js/socket.io.js"></script>
+  <script>
+    cl = console.log
+    var ctx = document.getElementById('ctx').getContext("2d")
+    ctx.font = '30px Arial'
+
+    var socket = io()
+  
+    //reception de données
+    socket.on('newPositions', (data) => {
+      ctx.clearRect(0,0,500,500)
+      for(var i = 0; i < data.length; i++)
+        ctx.fillText(data[i].number, data[i].x, data[i].y)
+    })
+
+
+    keys = { 38: "up", 37: "left", 39: "right", 40: "down" }
+
+    document.addEventListener('keydown', event =>{
+      socket.emit('keypress', {inputId: keys[event.which], state: true})
+    })
+
+    document.addEventListener('keyup', event =>{
+      socket.emit('keypress', {inputId: keys[event.which], state: false})
+    })
+  
+    
+  </script>
+</body>
+</html>
