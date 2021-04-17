@@ -1,7 +1,7 @@
+// const { rejects } = require('assert')
 var express = require('express')
 var app = express()
 var serv = require('http').Server(app)
-const port = 3000
 cl = console.log
 
 // if the reqest does not content a path, return  index ex: domain:2000
@@ -12,11 +12,9 @@ app.get('/',(req, res) => {
 // if a specific path is required inside the client directory, send the corresponding file ex: domain:2000/client/file
 app.use('/client', express.static(__dirname + '/client'))
 
-serv.listen(port)
+serv.listen(3000)
 
 var socket_list = {}
-var player_list = {}
-var directions = []
 
 class Entity {
   constructor(id){
@@ -52,7 +50,7 @@ class Player extends Entity{
   }
   
   updateSpeed(){
-    if( this.pressingUp    ) this.spdY = -this.maxSpeed
+    if( this.pressingUp ) this.spdY = -this.maxSpeed
     else if( this.pressingDown ) this.spdY =  this.maxSpeed
     else this.spdY = 0
     if( this.pressingRight ) this.spdX =  this.maxSpeed
@@ -69,11 +67,14 @@ Player.onConnect = (socket) => {
     else if(data.inputId == 'left' ) player.pressingLeft  = data.state
     else if(data.inputId == 'right') player.pressingRight = data.state
    })
+
+   socket.emit('init', { id:socket.id })
 }
 Player.onDisconnect = (socket) => {
   delete Player.list[socket.id]
 }
 Player.update = () =>{
+  // liste mise à jour des joueurs
   var pack = []
   for (i in Player.list) {
     player = Player.list[i]
@@ -94,14 +95,13 @@ io.sockets.on('connection', (socket) => {
   socket_list[socket.id] = socket
 
   console.log('Nouvelle connection :: ' + socket.id)
-
   Player.onConnect(socket)
+  
   socket.on('disconnect',() => {
     delete socket_list[socket.id]
     Player.onDisconnect (socket)
+    console.log(socket.id + " :: déconnecté")
   })
-  
-  // création du joueur
   
 })
 setInterval(()=>{
@@ -109,7 +109,33 @@ setInterval(()=>{
   
   for (i in socket_list) {
     let socket = socket_list[i]
+    for (j of pack){
+      if (j.number == Player.list[i].number) j.color = "red"
+      else j.color = "blue"
+    }
     socket.emit('newPositions', pack)
   }
 }, 1000/25)
 
+// collision tests
+
+function testCollisionBetweenPoints(A,B){
+  var vx = A.x - B.x
+  var vy = A.y - B.y
+  distance = Math.sqrt(vx*vx+vy*vy)
+  return distance < 10
+}
+
+rect = {
+  height: 30,
+  width:30,
+  x: Entity.x-this.width/2,
+  y: Entity.y-this.height/2,
+}
+
+function testCollisionBetweenEntities(A,B){
+  return A.x <= B.x + B.width
+      && B.x <= A.x + A.width
+      && A.y <= B.y + B.height
+      && B.y <= A.y + A.height
+}
