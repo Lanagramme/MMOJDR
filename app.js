@@ -19,8 +19,8 @@ var socket_list = {}
 class Entity {
   constructor(id){
     this.id
-    this.x = 50
-    this.y = 50
+    this.x = 0
+    this.y = 0
     this.spdX = 0
     this.spdY = 0
   }
