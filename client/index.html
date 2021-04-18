@@ -10,28 +10,34 @@
       image-rendering: pixelated;
       box-sizing: border-box;
     }
-    body { margin: 0; padding: 0; }
+    body { 
+      height: 100vh;
+      width: 100vw;
+      margin: 0;
+      padding: 0; }
   </style>
 </head>
 <body>
-  <canvas id="ctx" width="500" height="500" style="border: 1px solid black;"></canvas>
+  <canvas id="ctx" width="500" height="500"></canvas>
 
   <script src="//cdn.jsdelivr.net/npm/eruda"></script>
   <script src="./client/js/socket.io.js"></script>
   <script>
     //mobile debugger
-    const cl = console.log
+    const cl = console.log;
     const el = document.createElement('div'); 
     eruda.init();
     document.body.appendChild(el); 
     eruda.init({ container: el, tool: ['console', 'elements'] });
 
     //canvas data
-    const ctx  = document.getElementById('ctx').getContext("2d")
-    ctx.height = document.getElementById('ctx').offsetHeight-2
-    ctx.width  = document.getElementById('ctx').offsetWidth -2
-    ctx.font = '16px Arial'
+    const ctx  = document.getElementById('ctx').getContext("2d");
+    HEIGHT = window.innerHeight;
+    WIDTH  = window.innerWidth ;
 
+    ctx.canvas.width = window.innerWidth
+    ctx.canvas.height = window.innerHeight
+ 
     //sprites data
     const sprite_size = 50
     const player_size = 100
@@ -53,7 +59,7 @@
       
       function renderFrame(data){
       //reset canvas
-      ctx.clearRect(0,0,500,500)
+      ctx.clearRect(0,0,window.innerWidth,window.innerHeight)
       //anti-aliasing
       ctx.imageSmoothingEnabled = false;
       //define player
@@ -61,12 +67,12 @@
       //map render from player POV
       ctx.drawImage(assets.map,
         0,0,assets.map.width,assets.map.height,
-        ctx.width/2-player.x,ctx.width/2-player.y,
+        WIDTH/2-player.x,HEIGHT/2-player.y,
         800,800)
       //render player at the center of the screen
       ctx.drawImage(assets.player, 
         0, 0, assets.player.width/4, assets.player.height/4,
-        ctx.width/2-player_size/2,ctx.height/2-player_size/2,
+       WIDTH/2-player_size/2,HEIGHT/2-player_size/2,
         player_size,player_size 
       )
       
@@ -75,10 +81,15 @@
         if (data[i].color == 'red') continue
         [x, y, number, color] = [data[i].x, data[i].y, number = data[i].number, data[i].color]
         ctx.fillStyle = color  ; 
-        ctx.fillRect( ctx.width/2-player.x+x-sprite_size/2, ctx.height/2-player.y+y-sprite_size/2, sprite_size, sprite_size )
-        ctx.fillStyle = "black"; 
+        ctx.fillRect( WIDTH/2-player.x+x-sprite_size/2,HEIGHT/2-player.y+y-sprite_size/2, sprite_size, sprite_size )
       }
     }
+
+    //Responsive canvas
+    window.addEventListener('resize', ()=>{ 
+          ctx.canvas.width = window.innerWidth
+          ctx.canvas.height = window.innerHeight
+        }, false)
 
     //keyboard interaction
     const keys = { 38: "up", 37: "left", 39: "right", 40: "down" }
