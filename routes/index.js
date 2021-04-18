@@ -8,33 +8,15 @@ var router = express.Router();
 
 for(page of ["home"]) {
 
-router.get(`/${page === "home" ? "" : page}`, function(req, res, next) {
+    router.get(`/${page === "home" ? "" : page}`, function(req, res, next) {
 
-    res.render(`${page === "home" ? 'index': page}`);
+        res.render(`${page === "home" ? '': page}`, { title: 'MMO-JDR' });
 
-});
-
-router.post(`/${page === "home" ? "" : page}`, function(req, res, next) {
-
-
-switch (page) {
-
-case 'login':
-
-break;
-
-default:
-
-break;
+    });
 
 }
-
-});
-
-
-}
-
-
+    
+    
 
 /* GET login page. */
 
