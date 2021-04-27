@@ -10,6 +10,7 @@
     ctx.canvas.height = window.innerHeight
  
     //sprites data
+    var Direction = "down"
     const sprite_size = 50
     const player_size = 100
     const assets = {}
@@ -41,8 +42,24 @@
         WIDTH/2-player.x,HEIGHT/2-player.y,
         800,800)
       //render player at the center of the screen
+        let Height = assets.player.height/4
+        
+        switch (Direction) {
+          case 'up':
+            faces = Height*2
+            break;
+          case 'down':
+            faces = 0
+            break;
+           case 'left':
+            faces = Height*3
+            break;
+          case 'right':
+            faces = Height
+            break;       
+        }
       ctx.drawImage(assets.player, 
-        0, 0, assets.player.width/4, assets.player.height/4,
+        0,faces, assets.player.width/4, assets.player.height/4,
        WIDTH/2-player_size/2,HEIGHT/2-player_size/2,
         player_size,player_size 
       )
@@ -67,6 +84,7 @@
     
     document.addEventListener('keydown', event =>{
       socket.emit('keypress', {inputId: keys[event.which], state: true})
+      Direction = keys[event.which]
     })
     document.addEventListener('keyup', event =>{
       socket.emit('keypress', {inputId: keys[event.which], state: false})
