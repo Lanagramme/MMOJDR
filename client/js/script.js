@@ -15,8 +15,9 @@
     const sprite_size = 50
     const player_size = 100
     const assets = {}
-    assets.player = new Image(); assets.player.src = '/client/img/Demo_sprite2.png'
-    assets.shadow = new Image(); assets.shadow.src = '/client/img/Shadow_sprite.webp'
+    assets.player = new Image(); assets.player.src = '/client/img/Girl_sprite.png'
+//    assets.player = new Image(); assets.player.src = '/client/img/Demo_sprite2.png'
+    assets.shadow = new Image(); assets.shadow.src = '/client/img/Shadow_sprite.png'
     assets.entity = new Image(); assets.entity.src = '/client/img/Demo_sprite.webp'
 //    assets.map    = new Image(); assets.map.src    = '/client/img/Demo_map.webp'
     assets.map    = new Image(); assets.map.src    = '/client/img/carte1.png'
@@ -60,11 +61,18 @@
             faces = Height
             break;       
         }
-      ctx.drawImage(assets.player, 
-        0,faces, assets.player.width/4, assets.player.height/4,
-       WIDTH/2-player_size/2,HEIGHT/2-player_size/2,
-        assets.player.width/4*pixel_size,assets.player.height/4*pixel_size 
-      )
+        ctx.drawImage(assets.shadow,
+          0,0, assets.shadow.width, assets.shadow.height,
+          WIDTH/2-assets.shadow.width/2*pixel_size, HEIGHT/2-assets.shadow.height/2*pixel_size,
+          assets.shadow.width*pixel_size, assets.shadow.height*pixel_size
+        )
+        ctx.drawImage(assets.player, 
+          assets.player.width/4,faces, assets.player.width/4, assets.player.height/4,
+          WIDTH/2-25,HEIGHT/2-64+3,
+          assets.player.width/4,assets.player.height/4 
+        )
+        ctx.fillStyle = 'red'
+        ctx.fillRect(WIDTH/2,HEIGHT/2,2,2)
       
       //render the other players
       for(var i = 0; i < data.length; i++){
