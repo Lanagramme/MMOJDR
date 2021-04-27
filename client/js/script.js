@@ -11,13 +11,15 @@
  
     //sprites data
     var Direction = "down"
+    const pixel_size = 2
     const sprite_size = 50
     const player_size = 100
     const assets = {}
-    assets.player = new Image(); assets.player.src = '/client/img/Demo_sprite.webp'
+    assets.player = new Image(); assets.player.src = '/client/img/Demo_sprite2.png'
     assets.shadow = new Image(); assets.shadow.src = '/client/img/Shadow_sprite.webp'
     assets.entity = new Image(); assets.entity.src = '/client/img/Demo_sprite.webp'
-    assets.map    = new Image(); assets.map.src    = '/client/img/Demo_map.webp'
+//    assets.map    = new Image(); assets.map.src    = '/client/img/Demo_map.webp'
+    assets.map    = new Image(); assets.map.src    = '/client/img/carte1.png'
 
     //socket actions
     const socket = io()    
@@ -40,7 +42,7 @@
       ctx.drawImage(assets.map,
         0,0,assets.map.width,assets.map.height,
         WIDTH/2-player.x,HEIGHT/2-player.y,
-        800,800)
+        assets.map.width*pixel_size, assets.map.height*pixel_size)
       //render player at the center of the screen
         let Height = assets.player.height/4
         
@@ -61,7 +63,7 @@
       ctx.drawImage(assets.player, 
         0,faces, assets.player.width/4, assets.player.height/4,
        WIDTH/2-player_size/2,HEIGHT/2-player_size/2,
-        player_size,player_size 
+        assets.player.width/4*pixel_size,assets.player.height/4*pixel_size 
       )
       
       //render the other players

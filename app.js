@@ -12,7 +12,7 @@ app.get('/',(req, res) => {
 // if a specific path is required inside the client directory, send the corresponding file ex: domain:2000/client/file
 app.use('/client', express.static(__dirname + '/client'))
 
-serv.listen(3001)
+serv.listen(1616)
 
 var socket_list = {}
 
