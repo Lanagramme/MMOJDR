@@ -1,4 +1,4 @@
-class entity = {  
+class Entity = {  
   constructor(id){
     this.id
     this.x = 1500
