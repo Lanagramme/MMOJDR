@@ -1,6 +1,4 @@
-const entity = {
-  Entity = class {
-  constructor(id){
+const entity = {  constructor(id){
     this.id
     this.x = 1500
     this.y = 1600
@@ -13,7 +11,5 @@ const entity = {
     this.y += this.spdY
   }
 }
-}
 
-module.exports = entity
-
+module.exports = { Entity }
