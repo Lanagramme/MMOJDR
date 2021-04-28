@@ -60,4 +60,4 @@ player.Player.update = () =>{
   return pack
 }
 
-module.export player
+module.exports = player
