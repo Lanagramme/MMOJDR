@@ -1,4 +1,4 @@
-const { Entity } = require('entity.js)
+const { Entity } = require('entity.js')
 
 class Player extends Entity{
    constructor(id,x,y){
@@ -26,8 +26,8 @@ class Player extends Entity{
      else if( this.pressingLeft ) this.spdX = -this.maxSpeed
      else this.spdX = 0
    }
-  }
 }
+
 Player.list = {}
 Player.onConnect = (socket) => {
   var player = new Player(socket.id)
