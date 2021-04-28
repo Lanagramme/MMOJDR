@@ -1,8 +1,6 @@
 const { Entity } = require('./entity.js)
 
-
-const player = {
-  Player = class extends Entity{
+class Player extends Entity{
    constructor(id,x,y){
      super(id,x,y)
      this.pressingUp = false
@@ -30,8 +28,8 @@ const player = {
    }
   }
 }
-player.Player.list = {}
-player.Player.onConnect = (socket) => {
+Player.list = {}
+Player.onConnect = (socket) => {
   var player = new Player(socket.id)
   socket.on('keypress', (data)=> {
     if(data.inputId == 'up'   ) player.pressingUp    = data.state
@@ -42,10 +40,10 @@ player.Player.onConnect = (socket) => {
 
    socket.emit('init', { id:socket.id })
 }
-player.Player.onDisconnect = (socket) => {
+Player.onDisconnect = (socket) => {
   delete Player.list[socket.id]
 }
-player.Player.update = () =>{
+Player.update = () =>{
   // liste mise à jour des joueurs
   var pack = []
   for (i in Player.list) {
@@ -60,4 +58,4 @@ player.Player.update = () =>{
   return pack
 }
 
-module.exports = player
+module.exports = { Player }
