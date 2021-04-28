@@ -1,4 +1,5 @@
-class Entity {
+const entity = {
+  Entity = class {
   constructor(id){
     this.id
     this.x = 1500
@@ -12,5 +13,7 @@ class Entity {
     this.y += this.spdY
   }
 }
+}
 
-export { Entity }
+module.export entity
+
