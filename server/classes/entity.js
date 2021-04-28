@@ -15,5 +15,5 @@ const entity = {
 }
 }
 
-module.export entity
+module.exports = entity
 
