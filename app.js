@@ -120,7 +120,7 @@ setInterval(()=>{
 }, 1000/25)
 
 // collision tests
-
+/*
 function testCollisionBetweenPoints(A,B){
   var vx = A.x - B.x
   var vy = A.y - B.y
@@ -141,3 +141,4 @@ function testCollisionBetweenEntities(A,B){
       && A.y <= B.y + B.height
       && B.y <= A.y + A.height
 }
+*/
