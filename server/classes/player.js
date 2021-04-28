@@ -1,4 +1,4 @@
-const Entity = require('./entity.js')["Entity"]
+const { Entity } = require('./entity.js)
 
 
 const player = {
