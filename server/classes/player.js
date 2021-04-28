@@ -1,4 +1,4 @@
-const { Entity } = require('./entity.js)
+const { Entity } = require('entity.js)
 
 class Player extends Entity{
    constructor(id,x,y){
