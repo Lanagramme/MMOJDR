@@ -1,6 +1,6 @@
 extends layout
 
 block content
-  canvas#ctx(width='500' height='500')
-  script(src='/javascripts/socket.io.js')
-  script(src='/javascripts/script.js')
+  h1= title
+  p Welcome to #{title}
+  a(href="/game") i wanna play
