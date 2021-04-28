@@ -1,6 +1,11 @@
+
+const 
+  cl = console.log,
+  { Player } = require('./server/classes/player.js')
+
 module.exports = function (io) {
   
-var socket_list = {}
+const socket_list = {}
 io.sockets.on('connection', (socket) => {  
   socket.id = Math.random()
   socket_list[socket.id] = socket
