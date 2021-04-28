@@ -1,20 +1,31 @@
-// const { rejects } = require('assert')
-var express = require('express')
+//var express = require('express')
+//var io = require('socket.io')(serv,{})
+import express from 'express'import { createServer } from "http";
+import pkg from "socket.io";
+const { Server } = pkg
 var app = express()
-var serv = require('http').Server(app)
-cl = console.log
+
+const httpServer = createServer();
+const io = new Server(httpServer, {
+  // ...
+});
+
+const cl = console.log
+
+import { Player } from "./server/classes/player.mjs"
 
 // if the reqest does not content a path, return  index ex: domain:2000
 app.get('/',(req, res) => {
-  res.sendFile(__dirname + '/client/index.html')
+  res.sendFile('/client/index.html')
 })
 
 // if a specific path is required inside the client directory, send the corresponding file ex: domain:2000/client/file
-app.use('/client', express.static(__dirname + '/client'))
+app.use('/client', express.static('/client'))
 
-serv.listen(1616)
+httpServer.listen(1616)
 
 var socket_list = {}
+/*
 class Entity {
   constructor(id){
     this.id
@@ -86,8 +97,7 @@ Player.update = () =>{
   }
   return pack
 }
-
-var io = require('socket.io')(serv,{})
+*/
 io.sockets.on('connection', (socket) => {
   // connection
   socket.id = Math.random()
@@ -104,7 +114,7 @@ io.sockets.on('connection', (socket) => {
   
 })
 setInterval(()=>{
-  pack = Player.update()
+  pack = Player.pdate()
   
   for (i in socket_list) {
     let socket = socket_list[i]
