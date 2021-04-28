@@ -3,7 +3,7 @@ var express = require('express')
 var app = express()
 var serv = require('http').Server(app)
 cl = console.log
-const { Player } = require('server/classes/player.js')
+const { Player } = require('/server/classes/player.js')
 
 // if the reqest does not content a path, return  index ex: domain:2000
 app.get('/',(req, res) => {
