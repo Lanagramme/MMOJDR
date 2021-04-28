@@ -3,7 +3,7 @@ var express = require('express')
 var app = express()
 var serv = require('http').Server(app)
 cl = console.log
-
+const { Player } require('./server/classes/player.js')
 // if the reqest does not content a path, return  index ex: domain:2000
 app.get('/',(req, res) => {
   res.sendFile(__dirname + '/client/index.html')
@@ -15,7 +15,8 @@ app.use('/client', express.static(__dirname + '/client'))
 serv.listen(1616)
 
 var socket_list = {}
-class Entity {
+
+/* class Entity {
   constructor(id){
     this.id
     this.x = 1500
@@ -86,6 +87,7 @@ Player.update = () =>{
   }
   return pack
 }
+*/
 
 var io = require('socket.io')(serv,{})
 io.sockets.on('connection', (socket) => {
