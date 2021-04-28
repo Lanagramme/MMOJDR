@@ -1,8 +1,12 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+* {
+  image-rendering: pixelated;
+  box-sizing: border-box;
 }
-
-a {
-  color: #00B7FF;
+body { 
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  margin: 0;
+  padding: 0; 
 }
+ 

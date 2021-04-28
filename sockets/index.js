@@ -1,7 +1,7 @@
 
 const 
   cl = console.log,
-  { Player } = require('./server/classes/player.js')
+  { Player } = require('../classes/player.js')
 
 module.exports = function (io) {
   
