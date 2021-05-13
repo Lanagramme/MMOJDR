@@ -19,11 +19,12 @@ class Player extends Entity{
    }
    
    updateSpeed(){
-     if( this.pressingUp ) this.spdY = -this.maxSpeed
-     else if( this.pressingDown ) this.spdY =  this.maxSpeed
+     let speed = (( this.pressingUp || this.pressingDown ) && (this.pressingLeft || this.pressingRight)) ? this.maxSpeed / 4 * 2.5 : this.maxSpeed 
+     if( this.pressingUp ) this.spdY = -speed
+     else if( this.pressingDown ) this.spdY = speed
      else this.spdY = 0
-     if( this.pressingRight ) this.spdX =  this.maxSpeed
-     else if( this.pressingLeft ) this.spdX = -this.maxSpeed
+     if( this.pressingRight ) this.spdX =  speed
+     else if( this.pressingLeft ) this.spdX = -speed
      else this.spdX = 0
    }
 }
