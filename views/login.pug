@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1 Login
+  form(action="/log" method="post")
+    each  i in groups 
+      div.form-group
+       label(for=i.value)= i.value
+       input(name=i.value id=i.value type=i.type)
+
+    button(type="input") Sumbit 
