@@ -1,4 +1,3 @@
-
 const 
   cl = console.log,
   { Player } = require('../classes/player.js')
@@ -7,6 +6,7 @@ module.exports = function (io) {
   
 const socket_list = {}
 io.sockets.on('connection', (socket) => {  
+
   socket.id = Math.random()
   socket_list[socket.id] = socket
 

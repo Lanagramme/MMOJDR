@@ -2,6 +2,7 @@ extends layout
 
 block content
   h1 Login
+  p=state
   form(action="/log" method="post")
     each  i in groups 
       div.form-group
